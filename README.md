@@ -1,4 +1,6 @@
-# COM3D2.DoubleFrontHole
+# COM3D2 Double Front Whole Accessory
+
+[![Latest Release](https://img.shields.io/github/v/release/nanashi-187/COM3D2_Double_Front_Hole_Accessory)](https://github.com/nanashi-187/COM3D2_Double_Front_Hole_Accessory/releases/latest)
 
 A BepInEx plugin for COM3D2 that allows two front-hole accessories to remain equipped at the same time.
 
