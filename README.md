@@ -27,18 +27,6 @@ Restart the game after installing or updating the plugin.
 2. Hold `Ctrl` and select the second front-hole accessory.
 3. Use the game's normal selection flow to replace the primary accessory.
 
-## Swing physics (experimental)
-
-Front-hole accessories with chain physics (bones named `_yure_soft_`, `_yure_hard_` or `_yure_`) can swing further than the game's own motion, in either slot. Settings are under `[Physics]` in `BepInEx/config/local.com3d2.doublefronthole.cfg`, or in-game with ConfigurationManager (F1); changes apply immediately.
-
-| Setting | Default | Effect |
-| --- | --- | --- |
-| `Swing Enabled` | true | Turns the swing options on or off. |
-| `Swing Strength` | 1 | How far chains swing away from their settled pose, 0.5–4. 1 = the game's own motion. |
-| `Swing Taper` | 0.5 | Spreads the extra swing along a chain, 0–3: 0 = equal at every joint, higher values keep the top stiffer and move the swing to the lowest joints (like a chain carrying a pendant). |
-
-The game's simulation is not changed; only the displayed swing is scaled, capped at 120° per joint, and reduced wherever it would push the chain deeper into the body-collision spheres than the physics pose. Accessories without physics bones stay rigid; the auto-rigger in the Double Nipple repository can add joints to single-bone dangles.
-
 ## Building
 
 From PowerShell:
@@ -103,7 +91,6 @@ PowerShell から次のコマンドを実行します。
 
 - ゲーム本体や MOD のアセットファイルは変更しません。
 - 互換性は各アクセサリーのメニューおよびモデル実装に依存します。
-- 揺れ物理（試験的）：揺れボーン（`_yure_soft_` / `_yure_hard_` / `_yure_`）を持つ前穴アクセサリーは、どちらのスロットでも `[Physics]` の `Swing Strength`（揺れの強さ、0.5〜4、既定 1 = ゲーム標準）と `Swing Taper`（揺れの配分、0〜3）で揺れを大きくできます。ゲームの物理計算自体は変更せず、体の当たり判定より深く食い込む揺れは抑えられます。
 - 問題を報告する場合は、再現できるアクセサリーの組み合わせと BepInEx のログを添付してください。
 
 ---
@@ -211,9 +198,9 @@ sequenceDiagram
 上図は1回の装着処理の順序です。COM3D2 のメニューバイナリ自身が `accxxx` を指定する場合があるため、API 引数だけでなく `Menu.ProcScriptBin` に渡るバイト列内の完全一致トークンも置換します。これにより、メニュー処理がアクセサリーをメインスロットへ戻してしまうことを防ぎます。
 ## Current Release Name / 現在のリリース名
 
-The current BepInEx display name is **COM3D2 Double Front Whole Accessory**, version **0.4.0**. The DLL filename and stable plugin GUID remain unchanged for upgrade compatibility.
+The current BepInEx display name is **COM3D2 Double Front Whole Accessory**, version **0.3.2**. The DLL filename and stable plugin GUID remain unchanged for upgrade compatibility.
 
-現在の BepInEx 表示名は **COM3D2 Double Front Whole Accessory**、バージョンは **0.4.0** です。アップグレード互換性を保つため、DLL ファイル名とプラグイン GUID は変更していません。
+現在の BepInEx 表示名は **COM3D2 Double Front Whole Accessory**、バージョンは **0.3.2** です。アップグレード互換性を保つため、DLL ファイル名とプラグイン GUID は変更していません。
 
 ## License Update / ライセンス更新
 
