@@ -41,6 +41,7 @@ The DLL is written to `bin/COM3D2.DoubleFrontHole.dll` by default. The script us
 
 - The plugin does not modify game or mod asset files.
 - Compatibility depends on the accessory's menu/model implementation. Report reproducible combinations with the BepInEx log.
+- For livelier swinging of front-hole chains (both slots), install [COM3D2 Accessory Physics](https://github.com/nanashi-187/COM3D2_Accessory_Physics). The swing settings that 0.4.0 added here moved there in 0.5.0.
 
 ## License
 
@@ -91,6 +92,7 @@ PowerShell から次のコマンドを実行します。
 
 - ゲーム本体や MOD のアセットファイルは変更しません。
 - 互換性は各アクセサリーのメニューおよびモデル実装に依存します。
+- 前穴アクセサリー（両スロット）のチェーンをより大きく揺らすには [COM3D2 Accessory Physics](https://github.com/nanashi-187/COM3D2_Accessory_Physics) を導入してください。0.4.0 で追加した揺れ設定は 0.5.0 でそちらへ移動しました。
 - 問題を報告する場合は、再現できるアクセサリーの組み合わせと BepInEx のログを添付してください。
 
 ---
@@ -198,9 +200,9 @@ sequenceDiagram
 上図は1回の装着処理の順序です。COM3D2 のメニューバイナリ自身が `accxxx` を指定する場合があるため、API 引数だけでなく `Menu.ProcScriptBin` に渡るバイト列内の完全一致トークンも置換します。これにより、メニュー処理がアクセサリーをメインスロットへ戻してしまうことを防ぎます。
 ## Current Release Name / 現在のリリース名
 
-The current BepInEx display name is **COM3D2 Double Front Whole Accessory**, version **0.3.2**. The DLL filename and stable plugin GUID remain unchanged for upgrade compatibility.
+The current BepInEx display name is **COM3D2 Double Front Whole Accessory**, version **0.5.0**. The DLL filename and stable plugin GUID remain unchanged for upgrade compatibility.
 
-現在の BepInEx 表示名は **COM3D2 Double Front Whole Accessory**、バージョンは **0.3.2** です。アップグレード互換性を保つため、DLL ファイル名とプラグイン GUID は変更していません。
+現在の BepInEx 表示名は **COM3D2 Double Front Whole Accessory**、バージョンは **0.5.0** です。アップグレード互換性を保つため、DLL ファイル名とプラグイン GUID は変更していません。
 
 ## License Update / ライセンス更新
 
