@@ -13,7 +13,7 @@ namespace COM3D2.DoubleFrontHole
         private static readonly byte[][] ToTokens = { Ascii("accVag"), Ascii("accvag") };
 
         /// <summary>
-        /// Returns a copy of the script with every whole-token accXXX/accxxx
+        /// Returns a copy of the script with every accXXX/accxxx slot-name string
         /// replaced, or the original array when there is nothing to replace.
         /// </summary>
         public static byte[] PrimaryToSecondary(byte[] script)
@@ -38,9 +38,9 @@ namespace COM3D2.DoubleFrontHole
         private static byte[] ReplaceTokens(byte[] source, byte[] copy, byte[] from, byte[] to)
         {
             var bytes = copy ?? source;
-            for (var i = 0; i <= bytes.Length - from.Length; i++)
+            for (var i = 1; i <= bytes.Length - from.Length; i++)
             {
-                if (!MatchesAt(bytes, i, from) || IsTokenChar(bytes, i - 1) || IsTokenChar(bytes, i + from.Length))
+                if (!IsWholeString(bytes, i, from))
                 {
                     continue;
                 }
@@ -58,8 +58,18 @@ namespace COM3D2.DoubleFrontHole
             return copy;
         }
 
-        private static bool MatchesAt(byte[] bytes, int offset, byte[] token)
+        // Menu scripts store each argument as a length-prefixed string (BinaryWriter
+        // format; the prefix is a single byte below 128). Only an argument that is
+        // exactly the token, i.e. preceded by its own length, is a slot name. The
+        // token inside a longer string, such as a file name "item(accxxx).model",
+        // must stay as it is or the referenced file can no longer be found.
+        private static bool IsWholeString(byte[] bytes, int offset, byte[] token)
         {
+            if (bytes[offset - 1] != token.Length)
+            {
+                return false;
+            }
+
             for (var j = 0; j < token.Length; j++)
             {
                 if (bytes[offset + j] != token[j])
@@ -69,17 +79,6 @@ namespace COM3D2.DoubleFrontHole
             }
 
             return true;
-        }
-
-        private static bool IsTokenChar(byte[] bytes, int index)
-        {
-            if (index < 0 || index >= bytes.Length)
-            {
-                return false;
-            }
-
-            var b = bytes[index];
-            return (b >= '0' && b <= '9') || (b >= 'A' && b <= 'Z') || (b >= 'a' && b <= 'z') || b == '_';
         }
 
         private static byte[] Ascii(string value)
