@@ -35,7 +35,7 @@ From PowerShell:
 .\build.ps1 -GamePath 'C:\Games\COM3D2'
 ```
 
-The DLL is written to `bin/COM3D2.DoubleFrontHole.dll` by default. Visual Studio 2022 Build Tools and its Roslyn C# compiler are required.
+The DLL is written to `bin/COM3D2.DoubleFrontHole.dll` by default. The script uses the Visual Studio 2022 Build Tools Roslyn compiler when installed and otherwise falls back to the .NET Framework `csc.exe` that ships with Windows, so the sources are kept C# 5 compatible. Pass `-CscPath` to choose a compiler explicitly.
 
 ## Notes
 
@@ -85,7 +85,7 @@ PowerShell から次のコマンドを実行します。
 .\build.ps1 -GamePath 'C:\Games\COM3D2'
 ```
 
-既定では DLL が `bin/COM3D2.DoubleFrontHole.dll` に出力されます。Visual Studio 2022 Build Tools と Roslyn C# コンパイラーが必要です。
+既定では DLL が `bin/COM3D2.DoubleFrontHole.dll` に出力されます。Visual Studio 2022 Build Tools の Roslyn コンパイラーがあればそれを使用し、なければ Windows 標準の .NET Framework `csc.exe` を使用します（そのためソースは C# 5 互換です）。`-CscPath` でコンパイラーを指定することもできます。
 
 ### 注意事項
 
