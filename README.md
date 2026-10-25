@@ -209,3 +209,63 @@ The current BepInEx display name is **COM3D2 Double Front Whole Accessory**, ver
 Use is permitted only under the repository's **Nanashi-187 Non-Commercial No-Derivatives Software License 1.0**. See `LICENSE` for the complete terms.
 
 利用条件は、リポジトリの **Nanashi-187 Non-Commercial No-Derivatives Software License 1.0** に従います。完全な条件は `LICENSE` を参照してください。
+
+## 0.6.0: Third front-hole slot / 3つ目の前穴スロット
+
+Version **0.6.0** adds a third front-hole slot, so up to three front-hole accessories can be worn at once. This section supersedes the version number above.
+
+### Requirements for the third slot
+
+- ExternalSaveData (`COM3D2.ExternalSaveData.Managed.dll` in `Sybaris/`) to keep the third accessory in the save. Without it the third slot still works, but only until the game is closed.
+
+### Usage
+
+| Click | Slot |
+| --- | --- |
+| Normal click | 1st (primary, `accxxx`) |
+| `Ctrl` + click | 2nd (`accvag`) |
+| `Alt` + click | 3rd (plugin slot `accXXX3`) |
+
+- **Remove only the third accessory:** hold `Alt` and select the "none / remove" item of the front-hole list.
+- Menus made for the second slot (`accVag`) also go to the third slot with `Alt`.
+- The third accessory is stored per maid and loaded again after loading a save, changing scenes or rebuilding the outfit.
+- Set `EnableThirdSlot = false` in `BepInEx/config/local.com3d2.doublefronthole.cfg` to turn the third slot off, or `ThirdSlotKey` to use another key (restart required). Avoid `LeftShift`: ShiftClickExplorer opens the item's folder or file on Shift and Ctrl+Shift clicks.
+
+### Limits of the third slot
+
+- It is not a game property: presets (`.preset`) and the game's own save data do not include it. It is kept in the ExternalSaveData file next to the save (`*.exsave.xml`).
+- Removing the plugin simply drops the third accessory. Saves still load normally.
+- `.menu` items are fully supported. For `.mod` items only the model is moved to the third slot; their material and texture changes may apply to the primary slot.
+- Menus that use `anime` or `toelock` with the slot name may not animate in the third slot.
+
+### How it works
+
+At startup the plugin appends a new body slot `accXXX3` to COM3D2's slot table (`TBody.m_strDefSlotName`) before any maid is created. An `Alt` click is intercepted in `Maid.SetProp`, so the primary `accxxx` property is not changed. The plugin loads the menu itself with `Menu.ProcScript`, rewriting slot names `accxxx`/`accXXX` (and `accVag`, so slot-2 versions of an item work too) in the menu script to `accXXX3` (the `category` line keeps `accxxx`, because the game parses it as a property). The file name is saved with ExternalSaveData and checked every half second for each active maid, so it comes back after body rebuilds.
+
+### 3つ目のスロット（日本語）
+
+バージョン **0.6.0** で3つ目の前穴スロットを追加し、前穴アクセサリーを最大3つ同時に装着できるようになりました。上記のバージョン表記より、この節が優先されます。
+
+#### 必要環境
+
+- 3つ目のアクセサリーをセーブに残すには ExternalSaveData（`Sybaris/` 内の `COM3D2.ExternalSaveData.Managed.dll`）が必要です。無い場合でも3つ目のスロットは使えますが、ゲームを終了すると消えます。
+
+#### 使用方法
+
+| 操作 | スロット |
+| --- | --- |
+| 通常クリック | 1つ目（メイン、`accxxx`） |
+| `Ctrl` + クリック | 2つ目（`accvag`） |
+| `Alt` + クリック | 3つ目（プラグインのスロット `accXXX3`） |
+
+- **3つ目だけ外す:** `Alt` を押しながら、前穴アクセサリー一覧の「なし／解除」アイテムを選択します。
+- 2つ目用（`accVag`）に作られたメニューも、`Alt` クリックで3つ目のスロットに入ります。
+- 3つ目のアクセサリーはメイドごとに記録され、セーブのロード、シーン移動、衣装の再構築の後に自動で再装着されます。
+- `BepInEx/config/local.com3d2.doublefronthole.cfg` の `EnableThirdSlot = false` で3つ目のスロットを無効に、`ThirdSlotKey` で使うキーを変更できます（再起動が必要）。ShiftClickExplorer は Shift と Ctrl+Shift のクリックでフォルダーやファイルを開くため、`LeftShift` は避けてください。
+
+#### 制限事項
+
+- ゲームのプロパティではないため、プリセット（`.preset`）とゲーム本体のセーブデータには含まれません。セーブの横の ExternalSaveData ファイル（`*.exsave.xml`）に保存されます。
+- プラグインを外すと3つ目のアクセサリーが外れるだけで、セーブは通常どおりロードできます。
+- `.menu` 形式のアイテムに対応しています。`.mod` 形式ではモデルだけが3つ目のスロットに入り、マテリアルやテクスチャの変更はメインスロットに適用される場合があります。
+- スロット名を指定する `anime` や `toelock` を使うメニューは、3つ目のスロットではアニメーションしない場合があります。
