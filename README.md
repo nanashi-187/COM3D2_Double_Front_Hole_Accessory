@@ -1,4 +1,4 @@
-# COM3D2 Double Front Whole Accessory
+# COM3D2 Double Front Hole Accessory
 
 [![Latest Release](https://img.shields.io/github/v/release/nanashi-187/COM3D2_Double_Front_Hole_Accessory)](https://github.com/nanashi-187/COM3D2_Double_Front_Hole_Accessory/releases/latest)
 
@@ -13,7 +13,7 @@ A BepInEx plugin for COM3D2 that allows two front-hole accessories to remain equ
 
 [Download the latest release package](https://github.com/nanashi-187/COM3D2_Double_Front_Hole_Accessory/releases/latest)
 
-Download `COM3D2.DoubleFrontWhole.Accessory-0.6.0.zip`, extract it, then copy `COM3D2.DoubleFrontHole.dll` into:
+Download `COM3D2.DoubleFrontHole.Accessory-0.6.0.zip`, extract it, then copy `COM3D2.DoubleFrontHole.dll` into:
 
 ```text
 COM3D2/BepInEx/plugins/
@@ -200,9 +200,9 @@ sequenceDiagram
 上図は1回の装着処理の順序です。COM3D2 のメニューバイナリ自身が `accxxx` を指定する場合があるため、API 引数だけでなく `Menu.ProcScriptBin` に渡るバイト列内の完全一致トークンも置換します。これにより、メニュー処理がアクセサリーをメインスロットへ戻してしまうことを防ぎます。
 ## Current Release Name / 現在のリリース名
 
-The current BepInEx display name is **COM3D2 Double Front Whole Accessory**, version **0.5.0**. The DLL filename and stable plugin GUID remain unchanged for upgrade compatibility.
+The current BepInEx display name is **COM3D2 Double Front Hole Accessory**, version **0.6.0**. The DLL filename and stable plugin GUID remain unchanged for upgrade compatibility.
 
-現在の BepInEx 表示名は **COM3D2 Double Front Whole Accessory**、バージョンは **0.5.0** です。アップグレード互換性を保つため、DLL ファイル名とプラグイン GUID は変更していません。
+現在の BepInEx 表示名は **COM3D2 Double Front Hole Accessory**、バージョンは **0.6.0** です。アップグレード互換性を保つため、DLL ファイル名とプラグイン GUID は変更していません。
 
 ## License Update / ライセンス更新
 

@@ -10,7 +10,7 @@ namespace COM3D2.DoubleFrontHole
     {
         // GUID and DLL name stay fixed so existing installs upgrade in place.
         public const string Guid = "local.com3d2.doublefronthole";
-        public const string Name = "COM3D2 Double Front Whole Accessory";
+        public const string Name = "COM3D2 Double Front Hole Accessory";
         public const string Version = "0.6.0";
 
         internal static ManualLogSource Log;
