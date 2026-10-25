@@ -21,6 +21,7 @@ if (-not $CscPath) {
 
 $managed = Join-Path $GamePath 'COM3D2x64_Data\Managed'
 $bepInEx = Join-Path $GamePath 'BepInEx\core'
+$sybaris = Join-Path $GamePath 'Sybaris'
 $sources = Get-ChildItem (Join-Path $PSScriptRoot 'src') -Filter *.cs | ForEach-Object FullName
 New-Item -ItemType Directory -Force -Path (Split-Path -Parent $OutputPath) | Out-Null
 
@@ -33,6 +34,7 @@ New-Item -ItemType Directory -Force -Path (Split-Path -Parent $OutputPath) | Out
   /reference:"$bepInEx\0Harmony.dll" `
   /reference:"$managed\Assembly-CSharp.dll" `
   /reference:"$managed\UnityEngine.dll" `
+  /reference:"$sybaris\COM3D2.ExternalSaveData.Managed.dll" `
   $sources
 
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

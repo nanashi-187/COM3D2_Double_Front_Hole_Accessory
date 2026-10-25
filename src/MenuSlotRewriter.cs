@@ -1,11 +1,12 @@
 using System;
+using System.IO;
 using System.Text;
 
 namespace COM3D2.DoubleFrontHole
 {
     /// <summary>
     /// Rewrites the slot name embedded in a binary .menu script so a menu
-    /// written for the primary slot loads into the secondary slot.
+    /// written for the primary slot loads into the secondary or third slot.
     /// </summary>
     internal static class MenuSlotRewriter
     {
@@ -30,6 +31,97 @@ namespace COM3D2.DoubleFrontHole
             }
 
             return copy ?? script;
+        }
+
+        /// <summary>
+        /// Returns a copy of the script with every accXXX/accxxx/accVag slot-name argument
+        /// replaced by the extra slot name, or the original array when there is
+        /// nothing to replace. The "category" line keeps accxxx: the game parses
+        /// it as an MPN, and the extra slot has none of its own.
+        /// </summary>
+        public static byte[] PrimaryToExtra(byte[] script, string slotName)
+        {
+            if (script == null)
+            {
+                return null;
+            }
+
+            try
+            {
+                return RewriteCommands(script, slotName) ?? script;
+            }
+            catch (Exception ex)
+            {
+                DoubleFrontHolePlugin.Log.LogWarning("Menu script could not be parsed for the third slot, loading it unchanged: " + ex.Message);
+                return script;
+            }
+        }
+
+        // Layout read by Menu.ProcScriptBin: header (string "CM3D2_MENU", int32
+        // version, 4 strings, int32 body size), then commands of one count byte
+        // followed by that many strings, ended by a zero count byte.
+        private static byte[] RewriteCommands(byte[] script, string slotName)
+        {
+            var utf8 = new UTF8Encoding(false);
+            var reader = new BinaryReader(new MemoryStream(script), utf8);
+            var output = new MemoryStream(script.Length + 64);
+            var writer = new BinaryWriter(output, utf8);
+            var changed = false;
+
+            writer.Write(reader.ReadString());
+            writer.Write(reader.ReadInt32());
+            for (var h = 0; h < 4; h++)
+            {
+                writer.Write(reader.ReadString());
+            }
+
+            reader.ReadInt32();
+            var sizeAt = output.Position;
+            writer.Write(0);
+            var bodyStart = output.Position;
+
+            while (true)
+            {
+                var count = reader.ReadByte();
+                writer.Write(count);
+                if (count == 0)
+                {
+                    break;
+                }
+
+                var args = new string[count];
+                for (var a = 0; a < count; a++)
+                {
+                    args[a] = reader.ReadString();
+                }
+
+                var isCategory = args[0] == "category";
+                for (var a = 0; a < count; a++)
+                {
+                    if (a > 0 && !isCategory && SlotRouter.IsFrontHoleTag(args[a]))
+                    {
+                        args[a] = slotName;
+                        changed = true;
+                    }
+
+                    writer.Write(args[a]);
+                }
+            }
+
+            if (!changed)
+            {
+                return null;
+            }
+
+            var rest = (int)(script.Length - reader.BaseStream.Position);
+            writer.Write(reader.ReadBytes(rest));
+            writer.Flush();
+
+            var bodySize = (int)(output.Position - bodyStart);
+            output.Position = sizeAt;
+            writer.Write(bodySize);
+            writer.Flush();
+            return output.ToArray();
         }
 
         // Writes replacements into copy, cloning source on the first match when no
