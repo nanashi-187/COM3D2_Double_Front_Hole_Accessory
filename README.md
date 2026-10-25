@@ -13,7 +13,7 @@ A BepInEx plugin for COM3D2 that allows two front-hole accessories to remain equ
 
 [Download the latest release package](https://github.com/nanashi-187/COM3D2_Double_Front_Hole_Accessory/releases/latest)
 
-Download `COM3D2.DoubleFrontWhole.Accessory-0.3.1.zip`, extract it, then copy `COM3D2.DoubleFrontHole.dll` into:
+Download `COM3D2.DoubleFrontWhole.Accessory-0.6.0.zip`, extract it, then copy `COM3D2.DoubleFrontHole.dll` into:
 
 ```text
 COM3D2/BepInEx/plugins/
