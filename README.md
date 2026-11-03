@@ -269,3 +269,9 @@ At startup the plugin appends a new body slot `accXXX3` to COM3D2's slot table (
 - プラグインを外すと3つ目のアクセサリーが外れるだけで、セーブは通常どおりロードできます。
 - `.menu` 形式のアイテムに対応しています。`.mod` 形式ではモデルだけが3つ目のスロットに入り、マテリアルやテクスチャの変更はメインスロットに適用される場合があります。
 - スロット名を指定する `anime` や `toelock` を使うメニューは、3つ目のスロットではアニメーションしない場合があります。
+
+## License Update 1.1 / ライセンス更新 1.1
+
+The current license is now **Nanashi-187 Non-Commercial No-Derivatives Software License 1.1**, which replaces references to version 1.0 elsewhere in this README. Version 1.1 adds restrictions on scraping, text and data mining, and AI or machine learning training. See `LICENSE` for the complete terms.
+
+現在のライセンスは **Nanashi-187 Non-Commercial No-Derivatives Software License 1.1** です。本 README 内のバージョン 1.0 への言及は 1.1 に置き換えられます。バージョン 1.1 では、スクレイピング、テキスト・データマイニング、AI・機械学習の学習への利用に関する制限を追加しました。完全な条件は `LICENSE` を参照してください。
